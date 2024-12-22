@@ -1,5 +1,4 @@
-Data downloaded from [Wikidata][] is under [the Creative Commons CC0 License][CC0]: see [Wikidata:Copyright][]. This data is located at the paths:
-- `site/monetPaintings.tsv`
+Data downloaded from [Wikidata][] is under [the Creative Commons CC0 License][CC0]: see [Wikidata:Copyright][]. This data is located in the directory `site/thirdparty/wikidata/`.
 
 The original paintings of Claude Monet are in the public domain in the United States. The photographs of paintings by Claude Monet displayed on the rendered website are fetched from [Wikimedia Commons][]. Since they are "faithful reproductions of two-dimensional public domain works of art", the Wikimedia Foundation believes these photographs of paintings are in the public domain: see [the Wikimedia Foundation's position on this issue][WMF position].
 

@@ -1,0 +1,6 @@
+# Paste this into https://query.wikidata.org/ to generate an updated list of paintings.
+SELECT ?item ?image WHERE {
+  ?item wdt:P170 wd:Q296; # creator = Monet
+        wdt:P31 wd:Q3305213; # instance of = painting
+        wdt:P18 ?image;
+}
