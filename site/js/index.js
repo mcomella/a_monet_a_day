@@ -1,4 +1,5 @@
 import { parseTsv, IMAGE_URL_PREFIX, getIndexForToday } from './util.js';
+import { getCommonsUrl } from './wikimedia.js';
 
 const DATA_PATH = 'thirdparty/wikidata/monetPaintings.tsv';
 
@@ -20,7 +21,10 @@ async function fetchData() {
 const data = await fetchData();
 const paintings = parseTsv(data).records;
 const displayIndex = getIndexForToday(new Date(), paintings.length);
-const paintingData = paintings[displayIndex];
+const painting = paintings[displayIndex];
 
+const paintingLink = document.getElementById('painting-link');
 const paintingElement = document.getElementById('painting');
-paintingElement.src = `${IMAGE_URL_PREFIX + paintingData.image}?height=${window.screen.availHeight}`;
+
+paintingLink.href = getCommonsUrl(painting.image);
+paintingElement.src = `${IMAGE_URL_PREFIX + painting.image}?height=${window.screen.availHeight}`;
