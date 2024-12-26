@@ -24,3 +24,20 @@ export function parseTsv(tsv) {
         records,
     };
 }
+
+export function getStartDate() {
+    return new Date(2024, 11, 26); // defensive copy.
+}
+
+export function getIndexForToday(now, len) {
+    const startDate = getStartDate();
+
+    // If someone's clock is inaccurate, we'll always return the first value.
+    if (now < startDate) {
+        return 0;
+    }
+
+    const millisInDay = 1000 * 60 * 60 * 24;
+    const daysPassed = Math.floor((now - startDate) / millisInDay);
+    return daysPassed % len;
+}
