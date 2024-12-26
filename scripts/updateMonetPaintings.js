@@ -3,10 +3,13 @@
 
 import assert from 'assert';
 import fs from 'fs';
+import { shuffleArray } from './util.js';
 import { parseTsv, ENTITY_URL_PREFIX, IMAGE_URL_PREFIX } from '../site/js/util.js';
 
 const USAGE = 'usage: node scripts/updateMonetPaintings.js PATH_TO_INPUT_TSV';
+
 const OUTPUT_FILE = 'site/thirdparty/wikidata/monetPaintings.tsv';
+const SORT_ORDER_FILE = 'monetPaintingsSortOrder.json';
 
 function printUsageAndExit() {
     console.error(USAGE);
@@ -38,7 +41,10 @@ let inputTsv;
 // Process input TSV.
 let outputTsv = `${inputTsv.header.join('\t')}\n`;
 {
+    // Clean up and validate each record.
     const seenItems = new Set();
+    const processedRecords = [];
+    const itemToRecord = new Map();
     for (const record of inputTsv.records) {
         if (seenItems.has(record.item)) {
             // If there are multiple items with the same key, we assume Wikidata returns the original images in the
@@ -49,13 +55,37 @@ let outputTsv = `${inputTsv.header.join('\t')}\n`;
 
         seenItems.add(record.item);
 
+        // Remove redundancy to reduce bandwidth when clients fetch the data.
         assert.ok(record.item.startsWith(ENTITY_URL_PREFIX));
-        const item = record.item.slice(ENTITY_URL_PREFIX.length);
-
         assert.ok(record.image.startsWith(IMAGE_URL_PREFIX));
-        const image = record.image.slice(IMAGE_URL_PREFIX.length);
 
-        outputTsv += `${item}\t${image}\n`;
+        const processedRecord = {
+            item: record.item.slice(ENTITY_URL_PREFIX.length),
+            image: record.image.slice(IMAGE_URL_PREFIX.length),
+        };
+
+        processedRecords.push(processedRecord);
+        itemToRecord.set(processedRecord.item, processedRecord);
+    }
+
+    // Sort the items in the order defined by the given file. We want to display the images in a random order but one
+    // consistent for every user and even when the painting list is updated so we save a sort order and reference that
+    // on each update.
+    if (!fs.existsSync(SORT_ORDER_FILE)) {
+        // We have no saved sort order: make and save a new one.
+        const shuffledItems = shuffleArray(processedRecords).map(r => r.item);
+        fs.writeFileSync(SORT_ORDER_FILE, JSON.stringify(shuffledItems));
+    }
+
+    // Verify new items were not added in an update. If this fails, we need to write new code to handle new items being added to the list.
+    const shuffledItems = JSON.parse(fs.readFileSync(SORT_ORDER_FILE));
+    assert.deepStrictEqual(new Set(shuffledItems), new Set(processedRecords.map(r => r.item)));
+
+    for (const item of shuffledItems) {
+        const curRecord = itemToRecord.get(item);
+
+        // Transform to output format.
+        outputTsv += `${curRecord.item}\t${curRecord.image}\n`;
     }
 }
 
