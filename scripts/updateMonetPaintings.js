@@ -4,11 +4,11 @@
 import assert from 'assert';
 import fs from 'fs';
 import { shuffleArray } from './util.js';
-import { parseTsv, ENTITY_URL_PREFIX, IMAGE_URL_PREFIX } from '../site/js/util.js';
+import { parseTsv, ENTITY_URL_PREFIX, IMAGE_URL_PREFIX } from '../docs/js/util.js';
 
 const USAGE = 'usage: node scripts/updateMonetPaintings.js PATH_TO_INPUT_TSV';
 
-const OUTPUT_FILE = 'site/thirdparty/wikidata/monetPaintings.tsv';
+const OUTPUT_FILE = 'docs/thirdparty/wikidata/monetPaintings.tsv';
 const SORT_ORDER_FILE = 'monetPaintingsSortOrder.json';
 
 function printUsageAndExit() {
@@ -18,7 +18,7 @@ function printUsageAndExit() {
 
 // Ensure script is run from project root so OUTPUT_FILE path is valid.
 if (fs.readdirSync('.')
-        .filter(f => f === 'site')
+        .filter(f => f === 'docs')
         .length !== 1) {
     console.error('ERROR: expected script to be run from project root');
     printUsageAndExit();

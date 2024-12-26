@@ -1,4 +1,4 @@
-import { getIndexForToday, getStartDate, parseTsv } from '../site/js/util.js';
+import { getIndexForToday, getStartDate, parseTsv } from '../docs/js/util.js';
 
 describe('parseTsv', () => {
     const inputSharedHeader = `item\timage`;

@@ -1,11 +1,11 @@
 /// A spec for the Monet Paintings sent to the client.
 
 import fs from 'fs';
-import { parseTsv } from '../site/js/util.js';
+import { parseTsv } from '../docs/js/util.js';
 
 describe('The processed Monet Paintings input data', () => {
     const getData = (() => {
-        const originalData = fs.readFileSync('site/thirdparty/wikidata/monetPaintings.tsv', 'utf8');
+        const originalData = fs.readFileSync('docs/thirdparty/wikidata/monetPaintings.tsv', 'utf8');
         return () => structuredClone(originalData);
     })();
 

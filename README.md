@@ -1,8 +1,10 @@
 # A Monet a Day
 A website to display a different painting by Claude Monet each day.
 
+The website is deployed using GitHub Pages from the `docs` directory.
+
 ## Running
-Host `site` from a static file server, eg:
+Host `docs` from a static file server, eg:
 ```sh
 npm run host
 ```

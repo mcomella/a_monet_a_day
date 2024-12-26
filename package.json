@@ -1,9 +1,9 @@
 {
   "name": "a_monet_a_day",
   "version": "0.0.1",
-  "main": "site/index.html",
+  "main": "docs/index.html",
   "scripts": {
-    "host": "python3 -m http.server -d site",
+    "host": "python3 -m http.server -d docs",
     "test": "jasmine"
   },
   "author": "",
