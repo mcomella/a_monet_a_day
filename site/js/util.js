@@ -1,3 +1,6 @@
+export const ENTITY_URL_PREFIX = 'http://www.wikidata.org/entity/Q';
+export const IMAGE_URL_PREFIX = 'http://commons.wikimedia.org/wiki/Special:FilePath/';
+
 export function parseTsv(tsv) {
     const lines = tsv.split('\n');
     const header = lines[0].split('\t');

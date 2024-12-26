@@ -1,4 +1,4 @@
-import { parseTsv } from './util.js';
+import { parseTsv, IMAGE_URL_PREFIX } from './util.js';
 
 const DATA_PATH = 'thirdparty/wikidata/monetPaintings.tsv';
 
@@ -31,4 +31,4 @@ const paintingData = paintings[displayIndex];
 
 const containerElement = document.getElementById('container');
 const paintingElement = document.getElementById('painting');
-paintingElement.src = `${paintingData.image}?height=${containerElement.clientHeight}`;
+paintingElement.src = `${IMAGE_URL_PREFIX + paintingData.image}?height=${containerElement.clientHeight}`;
