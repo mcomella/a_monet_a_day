@@ -22,6 +22,5 @@ const paintings = parseTsv(data).records;
 const displayIndex = getIndexForToday(new Date(), paintings.length);
 const paintingData = paintings[displayIndex];
 
-const containerElement = document.getElementById('container');
 const paintingElement = document.getElementById('painting');
-paintingElement.src = `${IMAGE_URL_PREFIX + paintingData.image}?height=${containerElement.clientHeight}`;
+paintingElement.src = `${IMAGE_URL_PREFIX + paintingData.image}?height=${window.screen.availHeight}`;
