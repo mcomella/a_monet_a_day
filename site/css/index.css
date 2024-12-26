@@ -1,3 +1,7 @@
+body {
+    background-color: black;
+}
+
 #container {
     height: 96vb; /* < 100 avoids making scrollbar appear. */
 }
