@@ -1,0 +1,16 @@
+{
+  "name": "a_monet_a_day",
+  "version": "0.0.1",
+  "main": "site/index.html",
+  "scripts": {
+    "host": "python3 -m http.server -d site",
+    "test": "jasmine"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "jasmine": "^5.5.0"
+  },
+  "type": "module"
+}

@@ -1,4 +1,6 @@
-const DATA_PATH = 'query.tsv';
+import { parseTsv } from './util.js';
+
+const DATA_PATH = 'thirdparty/wikidata/monetPaintings.tsv';
 
 // via MDN: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random#getting_a_random_integer_between_two_values
 function getRandomInt(min, maxExclusive) {
@@ -17,39 +19,13 @@ async function fetchData() {
                 reject(`${req.status}:  ${req.responseText}`);
             }
         });
-        req.open('GET', 'thirdparty/wikidata/monetPaintings.tsv');
+        req.open('GET', DATA_PATH);
         req.send();
     });
 }
 
-// TODO: maybe we should only send the image paths instead of the keys for the MVP.
-function parseTsv(tsv) {
-    const lines = tsv.split('\n');
-    const header = lines[0].split('\t');
-    if (header.length !== 2 ||
-            header[0] !== 'item' ||
-            header[1] !== 'image') {
-        throw new Error(`unknown header fields: ${header}`);
-    }
-
-    const contents = lines.slice(1).map(line => {
-        const fields = line.split('\t');
-        if (fields.length !== header.length) {
-            console.warn(`fields does not match header length. fields = '${fields}'`)
-            return;
-        }
-
-        const result = {};
-        for (let i = 0; i < fields.length; i++) {
-            result[header[i]] = fields[i];
-        }
-        return result;
-    }).filter(v => v); // remove undefined values.
-    return contents;
-}
-
 const data = await fetchData();
-const paintings = parseTsv(data);
+const paintings = parseTsv(data).records;
 const displayIndex = getRandomInt(0, paintings.length);
 const paintingData = paintings[displayIndex];
 
