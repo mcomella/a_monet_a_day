@@ -1,9 +1,10 @@
 body {
+    margin: 0;
     background-color: black;
 }
 
 #container {
-    height: 96vb; /* < 100 avoids making scrollbar appear. */
+    height: 100vh;
 }
 
 #painting {
