@@ -4,7 +4,9 @@ body {
 }
 
 #container {
-    height: 100vh;
+    --container-margin-vertical: 24px;
+    height: calc(100vh - var(--container-margin-vertical) * 2);
+    margin: var(--container-margin-vertical) 0;
 }
 
 #painting {
