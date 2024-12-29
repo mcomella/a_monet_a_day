@@ -27,4 +27,4 @@ const paintingLink = document.getElementById('painting-link');
 const paintingElement = document.getElementById('painting');
 
 paintingLink.href = getCommonsUrl(painting.image);
-paintingElement.src = `${IMAGE_URL_PREFIX + painting.image}?height=${window.screen.availHeight}`;
+paintingElement.src = `${IMAGE_URL_PREFIX + painting.image}?width=${window.screen.availWidth}`;
